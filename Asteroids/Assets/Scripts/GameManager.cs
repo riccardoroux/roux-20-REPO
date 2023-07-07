@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public float respawnInvulnerabilityTime = 3.0f;
     public int lives = 3;
     public int score = 0;
+    public TMP_Text scoreText;
+    public TMP_Text lifeScore;
+
 
     public void AsteroidDestroyed(Asteroid asteroid)
     {
@@ -24,6 +27,8 @@ public class GameManager : MonoBehaviour
         } else {
             this.score += 25;
         }
+
+        scoreText.text = this.score.ToString();
     }
 
     public void PlayerDied()
@@ -32,13 +37,15 @@ public class GameManager : MonoBehaviour
         this.explosion.Play();
 
         this.lives--;
-        if(this.lives <= 0)
+        if(this.lives < 0)
         {
             SceneManager.LoadScene("GameOver");
         } else {
             Invoke(nameof(Respawn), this.respawnTime);
 
         }
+
+        lifeScore.text = this.lives.ToString();
 
     }
 
